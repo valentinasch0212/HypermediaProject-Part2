@@ -2,9 +2,12 @@
 
 **Hypermedia Project Part 2 | Universitat de Girona (UdG)**
 
-**Team members:**  
+**Team members:**
+
 **Course:** Multimedia and User Interfaces
+
 **Project:** Rush Hour web game  
+
 **Technologies:** HTML5, CSS3 and JavaScript
 
 ## 1. Project overview
