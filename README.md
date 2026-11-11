@@ -9,9 +9,9 @@
 
 ## 1. Project overview
 
-Rush Hour is a single-player sliding-block puzzle played on a **6 × 6 board**. Several cars obstruct the way to an exit on the right. The player must move the blocking vehicles until the **green car (G)** can reach that exit. A horizontal vehicle moves only left or right; a vertical vehicle moves only up or down. Vehicles cannot overlap, jump over one another, or move beyond the grid.
+Rush Hour is a single-player sliding-block puzzle played on a 6 × 6 board. Several cars obstruct the way to an exit on the right. The player must move the blocking vehicles until the green car (G) can reach that exit. A horizontal vehicle moves only left or right; a vertical vehicle moves only up or down. Vehicles cannot overlap, jump over one another, or move beyond the grid.
 
-Our implementation follows these core Rush Hour rules and adds **five difficulty categories with randomized, solvable puzzles**, mouse/touch dragging, keyboard and on-screen controls, an undo feature, puzzle restart, new puzzle generation, and personal best scores.
+Our implementation follows these core Rush Hour rules and adds five difficulty categories with randomized, solvable puzzles, mouse/touch dragging, keyboard and on-screen controls, an undo feature, puzzle restart, new puzzle generation, and personal best scores.
 
 The entire website runs in the browser. It does not use external frameworks, libraries, images, servers, user accounts, or network requests.
 
@@ -19,23 +19,23 @@ The entire website runs in the browser. It does not use external frameworks, lib
 
 1. Extract the submitted ZIP file.
 2. Open the project folder.
-3. Open `index.html` in a modern browser. Alternatively, use **Live Server** in Visual Studio Code.
+3. Open `index.html` in a modern browser. Alternatively, use Live Server in Visual Studio Code.
 4. On the main menu, select one of the five level cards to create a puzzle.
 
-**No installation, compilation, or build process is required.** An internet connection is not necessary for gameplay.
+No installation, compilation, or build process is required. An internet connection is not necessary for gameplay.
 
 ## 3. How to play
 
 1. Choose a difficulty level from the main menu.
-2. Identify the green car marked **G**. Its target is the opening on the right side of the third row (row index 2 in code).
-3. Select any vehicle and move it **along its own orientation**:
+2. Identify the green car marked G. Its target is the opening on the right side of the third row (row index 2 in code).
+3. Select any vehicle and move it along its own orientation:
    - **Mouse or touch:** drag a car.
    - **Keyboard:** click/select a car, then use the arrow keys.
    - **On-screen buttons:** select a car and use the four direction buttons.
 4. Move the other vehicles to clear a passage for G.
 5. The game ends when G reaches the right-hand exit. The victory screen displays the score and the best recorded score for that difficulty level.
 
-**Scoring convention:** one completed sliding action counts as **one move**, even when a vehicle travels multiple cells in that single action. Moving a car by one cell with an arrow key is also one action. Invalid movements do not increase the move counter.
+**Scoring convention:** one completed sliding action counts as one move, even when a vehicle travels multiple cells in that single action. Moving a car by one cell with an arrow key is also one action. Invalid movements do not increase the move counter.
 
 ### Game controls
 
@@ -55,11 +55,11 @@ The interface has three main screens, implemented as semantic HTML sections and 
 
 ### 4.1 Main menu
 
-The menu shows the game title, a concise explanation of the goal, three short gameplay instructions, and **five clickable level cards**. A card identifies its level number, name, approximate difficulty, vehicle count, and minimum allowed solution length. Selecting a card starts a new puzzle.
+The menu shows the game title, a concise explanation of the goal, three short gameplay instructions, and five clickable level cards. A card identifies its level number, name, approximate difficulty, vehicle count, and minimum allowed solution length. Selecting a card starts a new puzzle.
 
 ### 4.2 Game screen
 
-The game screen displays the current level, the 6 × 6 grid, an indicated exit, a live move counter, the best score (if available), a selected-car indicator, directional controls, and **Undo / Restart / New puzzle** buttons. The menu remains accessible without reloading the page.
+The game screen displays the current level, the 6 × 6 grid, an indicated exit, a live move counter, the best score (if available), a selected-car indicator, directional controls, and Undo / Restart / New puzzle buttons. The menu remains accessible without reloading the page.
 
 ### 4.3 Victory screen
 
@@ -75,21 +75,21 @@ When the green vehicle reaches the exit, the game displays a success message, th
 | Level 4 | Traffic Jam | 8 | 5 moves |
 | Level 5 | Gridlock | 10 | 6 moves |
 
-The levels are **difficulty categories**, not five unchanging boards. Choosing a category normally gives a different arrangement. The minimum values above are filtering thresholds—not promises that every puzzle has exactly that many moves, nor a strict ranking of every generated puzzle against every other one.
+The levels are difficulty categories, not five unchanging boards. Choosing a category normally gives a different arrangement. The minimum values above are filtering thresholds—not promises that every puzzle has exactly that many moves, nor a strict ranking of every generated puzzle against every other one.
 
 ### 5.1 Why the cars are not placed at arbitrary random coordinates
 
 Naively assigning random rows and columns can produce overlaps, out-of-bounds vehicles, or puzzles with no solution. To preserve the rules, `LEVELS` in `script.js` contains a known solvable *seed arrangement* for each category.
 
-`generatePuzzle()` copies the relevant seed and repeatedly chooses **legal, reversible slides** with `Math.random()`. Because the resulting board can be moved back to the solvable seed, it remains solvable. The algorithm then rejects a candidate if it already represents a victory, is identical to the seed, was recently generated, or has a solution shorter than the category's required minimum.
+`generatePuzzle()` copies the relevant seed and repeatedly chooses legal, reversible slides with `Math.random()`. Because the resulting board can be moved back to the solvable seed, it remains solvable. The algorithm then rejects a candidate if it already represents a victory, is identical to the seed, was recently generated, or has a solution shorter than the category's required minimum.
 
-To check the minimum difficulty, `solvableWithin()` performs **bounded breadth-first search (BFS)**: it explores reachable board states only up to a specified number of moves. If a solution is found *below* the threshold, the candidate is rejected. The generator tries up to **50 candidates**. If none satisfies its conditions, it falls back to the verified seed arrangement, so the game still provides a playable, solvable puzzle.
+To check the minimum difficulty, `solvableWithin()` performs bounded breadth-first search (BFS): it explores reachable board states only up to a specified number of moves. If a solution is found *below* the threshold, the candidate is rejected. The generator tries up to 50 candidates. If none satisfies its conditions, it falls back to the verified seed arrangement, so the game still provides a playable, solvable puzzle.
 
 **Design trade-off:** this approach prioritizes valid, solvable puzzles and low implementation complexity over perfectly uniform random generation. Rare repeats or a seed fallback are possible. We intentionally did not add more complex generation guarantees because they are unnecessary for the Rush Hour requirements.
 
 ### 5.2 Restart versus New puzzle
 
-These two actions deliberately differ. **Restart** lets a player retry the *same challenge* fairly, while **New puzzle** provides variety and replayability. This distinction avoids changing the puzzle unexpectedly when the player simply wants a second attempt.
+These two actions deliberately differ. Restart lets a player retry the *same challenge* fairly, while New puzzle provides variety and replayability. This distinction avoids changing the puzzle unexpectedly when the player simply wants a second attempt.
 
 ## 6. Project files
 
@@ -135,9 +135,9 @@ The game keeps `initialCars` for the puzzle's starting state and `cars` for its 
 
 ### 7.3 Collision detection and movement
 
-`occupiedCells()` builds a **6 × 6 occupancy matrix**. Each cell is either empty (`null`) or contains the ID of the vehicle occupying it.
+`occupiedCells()` builds a 6 × 6 occupancy matrix. Each cell is either empty (`null`) or contains the ID of the vehicle occupying it.
 
-`allowedDistance()` checks a proposed slide **cell by cell**, verifies the board boundaries and blocks any square occupied by another car. It returns the permitted displacement, which can be shorter than the distance requested by the user. This prevents a drag action from jumping over an obstacle.
+`allowedDistance()` checks a proposed slide cell by cell, verifies the board boundaries and blocks any square occupied by another car. It returns the permitted displacement, which can be shorter than the distance requested by the user. This prevents a drag action from jumping over an obstacle.
 
 `moveCar()` applies the validated movement, saves the previous state to `history`, increases the move counter, redraws the board and checks for victory. Illegal or zero-distance moves do not change the game state or score.
 
@@ -145,17 +145,15 @@ The game keeps `initialCars` for the puzzle's starting state and `cars` for its 
 
 `beginDrag()`, `updateDrag()`, `endDrag()` and `cancelDrag()` implement pointer-based dragging for mouse and touch. The preview is snapped to valid grid cells. `moveSelected()` routes keyboard arrows and visible direction buttons to the same movement rules, rather than duplicating the logic.
 
-This shared logic is important: **all input methods obey identical collision and boundary rules**.
+This shared logic is important: all input methods obey identical collision and boundary rules.
 
 ### 7.5 Undo, victory and saved records
 
 Each valid action adds a copy of the previous state and score to `history`. `undo()` restores that state. `checkVictory()` determines when the right end of G reaches the right boundary, then shows the victory screen.
 
-The best score is stored using the browser's **`localStorage`**, with a key derived from the selected difficulty level. This lets players keep a personal best for each category even when new layouts are generated. Because layouts vary, two games in the same category may not be equally difficult. Scores are local to the browser/device, are not uploaded, and may disappear if browser storage is cleared. If storage is unavailable, the game remains playable without persistent records.
+The best score is stored using the browser's `localStorage`, with a key derived from the selected difficulty level. This lets players keep a personal best for each category even when new layouts are generated. Because layouts vary, two games in the same category may not be equally difficult. Scores are local to the browser/device, are not uploaded, and may disappear if browser storage is cleared. If storage is unavailable, the game remains playable without persistent records.
 
 ## 8. UI/UX design justification
-
-The assignment requests not only a functioning puzzle but also a good interface and an explanation of its design. The following decisions are intentional.
 
 ### 8.1 Visual identity and color choices
 
@@ -170,11 +168,11 @@ The interface uses a restrained pastel palette:
 
 Additional neutral text, backgrounds and vehicle shades maintain legibility and help distinguish cars. Green is used consistently for the car that must escape, giving it a recognizable role rather than treating color as decoration alone. The exit is visibly marked, and the selected car receives an outline.
 
-**Arial/Helvetica** were chosen for familiarity and readability. Unnecessary footer text, decorative card arrows, excessive uppercase styling and a trailing punctuation mark in the brand were removed to keep the page simple and natural.
+Arial/Helvetica were chosen for familiarity and readability. Unnecessary footer text, decorative card arrows, excessive uppercase styling and a trailing punctuation mark in the brand were removed to keep the page simple and natural.
 
 ### 8.2 Information hierarchy
 
-The experience follows the player's task in a clear sequence: **choose a level → solve a puzzle → see the result**. The main menu introduces the objective before presenting level choices; the game screen puts the board and relevant controls together; the victory screen focuses on performance and the next action. This minimizes unnecessary navigation and keeps important information close to where it is used.
+The experience follows the player's task in a clear sequence: choose a level → solve a puzzle → see the result. The main menu introduces the objective before presenting level choices; the game screen puts the board and relevant controls together; the victory screen focuses on performance and the next action. This minimizes unnecessary navigation and keeps important information close to where it is used.
 
 ### 8.3 Clear feedback and error prevention
 
@@ -190,13 +188,5 @@ Flexbox, CSS Grid, fluid sizing and media queries adapt the menu, level cards an
 
 ### 8.6 Creativity without unnecessary complexity
 
-The extra features—random puzzles, five categories, undo, restart, new puzzle generation, best scores for each level and subtle animations—were included to improve replayability and control. They are implemented with standard browser technologies so that the project remains easy to run and maintain. They **extend** Rush Hour without changing its main objective or legal movement rules.
-
-## 9. Known limitations and design boundaries
-
-- Random generation uses a limited number of attempts and can occasionally fall back to the seed configuration. It does **not** guarantee a unique board on every play.
-- The five difficulty categories enforce minimum solution lengths, but the exact challenge can vary between puzzles within a category.
-- A record is tied to a difficulty level and stored only in the local browser; different random layouts may have different difficulty even in the same category. There is no online leaderboard or cross-device synchronization.
-- The game uses a conventional fixed **6 × 6** board and a right-side exit for the green car; these are deliberate scope choices.
-- The website does not include audio, accounts or remote services, as none are required by the assignment.
+The extra features—random puzzles, five categories, undo, restart, new puzzle generation, best scores for each level and subtle animations—were included to improve replayability and control. They are implemented with standard browser technologies so that the project remains easy to run and maintain. They extend Rush Hour without changing its main objective or legal movement rules.
 
