@@ -1,0 +1,636 @@
+/* Reusable colors and the size of each board cell. */
+:root {
+  --pink: #D8A2A2;
+  --blush: #FFDCDC;
+  --cream: #FFF9D6;
+  --sage: #8EA66B;
+  --sage-dark: #647B4B;
+  --text: #354136;
+  --muted: #6E756B;
+  --line: #E6DFD5;
+  --page: #FFFDF8;
+  --surface: #FFFFFF;
+  --cell: calc(100% / 6);
+}
+
+/* Global settings, smooth scrolling, and control appearance. */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font: 16px/1.5 Arial, Helvetica, sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+.car:focus-visible {
+  outline: 3px solid var(--sage-dark);
+  outline-offset: 3px;
+}
+
+/* Main container and top navigation bar. */
+.app-shell {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 25px 75px;
+}
+
+.topbar {
+  padding: 23px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text);
+  letter-spacing: -.6px;
+}
+
+/* Screen transition and utility class for hiding inactive screens. */
+.screen {
+  animation: appear .3s ease both;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Introductory section with text, instructions, and decoration. */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  padding: 65px 0 46px;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 680px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+.hero h1 {
+  font-size: clamp(35px, 5.4vw, 60px);
+  line-height: 1.13;
+  letter-spacing: -1.7px;
+  margin-bottom: 22px;
+  font-weight: 700;
+}
+
+.hero h1 span {
+  color: var(--sage-dark);
+}
+
+.hero p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 560px;
+}
+
+.how-to {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 27px;
+}
+
+.how-to span {
+  background: var(--cream);
+  border-radius: 25px;
+  padding: 9px 13px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.hero-pattern {
+  flex: 0 0 200px;
+  height: 200px;
+  background: var(--blush);
+  border-radius: 24px;
+  position: relative;
+  transform: rotate(3deg);
+}
+
+.mini-car {
+  position: absolute;
+  border-radius: 13px;
+  border: 4px solid #ffffff99;
+}
+
+.mini-pink {
+  width: 49px;
+  height: 120px;
+  background: var(--pink);
+  left: 26px;
+  top: 29px;
+}
+
+.mini-green {
+  width: 122px;
+  height: 48px;
+  background: var(--sage);
+  left: 51px;
+  top: 94px;
+}
+
+.mini-yellow {
+  width: 48px;
+  height: 75px;
+  background: var(--cream);
+  right: 25px;
+  top: 16px;
+}
+
+/* Level-selection heading and level cards. */
+.section-heading {
+  margin: 12px 0 20px;
+}
+
+.section-heading h2 {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  letter-spacing: -.4px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.level-card {
+  min-height: 177px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 19px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+
+/* Alternate the top border color to distinguish the cards. */
+.level-card:nth-child(4n+1) {
+  border-top: 5px solid var(--pink);
+}
+
+.level-card:nth-child(4n+2) {
+  border-top: 5px solid var(--blush);
+}
+
+.level-card:nth-child(4n+3) {
+  border-top: 5px solid var(--cream);
+}
+
+.level-card:nth-child(4n+4) {
+  border-top: 5px solid var(--sage);
+}
+
+.level-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--sage);
+  box-shadow: 0 8px 20px #35413612;
+}
+
+.level-number {
+  font-size: 13px;
+  color: var(--sage-dark);
+}
+
+.level-card strong {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.level-card small {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Game heading, subtitle, and secondary buttons. */
+.game-heading {
+  padding-top: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.game-subtitle {
+  font-size: 14px;
+  color: var(--sage-dark);
+  margin-bottom: 5px;
+}
+
+.game-heading h1 {
+  font-size: clamp(27px, 4.5vw, 43px);
+  letter-spacing: -.9px;
+  margin: 0 0 18px;
+}
+
+.ghost-button,
+.secondary-button {
+  padding: 10px 17px;
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--text);
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+.ghost-button:hover,
+.secondary-button:hover {
+  background: var(--cream);
+}
+
+/* Game status indicators and the area that centers the board. */
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--cream);
+  border: 1px solid #F1EBC4;
+  border-radius: 12px;
+  padding: 14px 19px;
+  font-size: 14px;
+}
+
+.statusbar strong {
+  font-size: 20px;
+  margin-left: 6px;
+  color: var(--sage-dark);
+}
+
+.play-area {
+  display: flex;
+  justify-content: center;
+  padding: 31px 0 0;
+}
+
+.board-frame {
+  position: relative;
+  width: min(100%, 430px);
+  background: var(--sage);
+  border-radius: 17px;
+  padding: 9px;
+  box-shadow: 0 12px 26px #3541361B;
+}
+
+/* Six-by-six grid and the board's exit opening. */
+#board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 9px;
+  overflow: visible;
+  background-color: #F8F3E8;
+  background-image: linear-gradient(to right, #e1d8ce 1px, transparent 1px), linear-gradient(to bottom, #e1d8ce 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  user-select: none;
+  touch-action: none;
+}
+
+#board::before {
+  content: "";
+  position: absolute;
+  right: -9px;
+  top: calc(2 * 100% / 6);
+  height: calc(100% / 6);
+  width: 9px;
+  background: var(--cream);
+  z-index: 1;
+}
+
+.exit {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: calc(9px + (100% - 18px) / 3);
+  height: calc((100% - 18px) / 6);
+  display: flex;
+  align-items: center;
+  color: var(--sage-dark);
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* Game vehicles and their selected and dragging states. */
+.car {
+  position: absolute;
+  border-radius: 11px;
+  border: 2px solid #FFFFFFB3;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  box-shadow: inset 0 -4px 0 #35413615, 0 2px 5px #35413618;
+  transition: left .15s, top .15s;
+  z-index: 2;
+}
+
+.car.selected {
+  outline: 3px solid var(--text);
+  outline-offset: -5px;
+  z-index: 3;
+}
+
+.car.dragging {
+  cursor: grabbing;
+  transition: none;
+  z-index: 4;
+  box-shadow: 0 6px 16px #35413630;
+}
+
+/* Game instructions, selected-vehicle information, and direction controls. */
+.board-help {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 22px 0 5px;
+}
+
+.selected-info {
+  text-align: center;
+  color: var(--sage-dark);
+  font-size: 13px;
+  min-height: 20px;
+  margin: 0 0 12px;
+}
+
+.direction-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.direction-row {
+  display: flex;
+  gap: 5px;
+}
+
+.direction-controls button {
+  width: 52px;
+  height: 44px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 22px;
+}
+
+.direction-controls button:hover {
+  background: var(--blush);
+}
+
+/* Game actions and the primary button. */
+.game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 19px;
+}
+
+.secondary-button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.primary-button {
+  background: var(--sage);
+  border: 1px solid var(--sage);
+  color: #fff;
+  border-radius: 9px;
+  padding: 11px 20px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.primary-button:hover {
+  background: var(--sage-dark);
+}
+
+/* Victory card shown after completing a level, with the final results. */
+.victory-card {
+  max-width: 590px;
+  margin: 75px auto;
+  padding: 55px 30px;
+  border-radius: 22px;
+  background: white;
+  border: 1px solid var(--line);
+  text-align: center;
+  box-shadow: 0 15px 30px #3541360F;
+}
+
+.victory-symbol {
+  display: grid;
+  place-items: center;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--sage-dark);
+  font-size: 38px;
+  margin: 0 auto 25px;
+  animation: pop .45s ease both;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(.5);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.victory-card h1 {
+  font-size: clamp(35px, 6vw, 55px);
+  margin-bottom: 11px;
+}
+
+.victory-card > p {
+  color: var(--muted);
+}
+
+.victory-stats {
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+  margin: 30px 0;
+}
+
+.victory-stats div {
+  display: grid;
+  gap: 5px;
+}
+
+.victory-stats span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.victory-stats strong {
+  font-size: 36px;
+}
+
+.record-message {
+  color: var(--sage-dark) !important;
+  font-size: 14px;
+  min-height: 21px;
+}
+
+.victory-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Layout adjustments for tablet and mobile screens. */
+@media (max-width: 760px) {
+  .level-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-pattern {
+    flex-basis: 150px;
+    height: 160px;
+  }
+
+  .mini-pink {
+    height: 105px;
+    width: 42px;
+    left: 15px;
+  }
+
+  .mini-green {
+    width: 96px;
+    left: 32px;
+    top: 95px;
+  }
+
+  .mini-yellow {
+    right: 12px;
+  }
+
+  .board-frame {
+    width: min(100% - 38px, 430px);
+    margin-right: 38px;
+  }
+}
+
+@media (max-width: 510px) {
+  .app-shell {
+    padding: 0 14px 55px;
+  }
+
+  .hero {
+    padding: 40px 0 26px;
+  }
+
+  .hero-pattern {
+    display: none;
+  }
+
+  .hero h1 {
+    letter-spacing: -.7px;
+  }
+
+  .level-grid {
+    gap: 9px;
+  }
+
+  .level-card {
+    min-height: 154px;
+    padding: 13px;
+  }
+
+  .statusbar {
+    padding: 11px;
+    font-size: 12px;
+  }
+
+  .statusbar strong {
+    font-size: 16px;
+  }
+
+  .game-heading {
+    align-items: flex-start;
+    padding-top: 25px;
+  }
+
+  .ghost-button {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  .victory-card {
+    padding: 40px 20px;
+  }
+
+  .victory-stats {
+    gap: 32px;
+  }
+}
+
+/* Disable animations when the user prefers reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

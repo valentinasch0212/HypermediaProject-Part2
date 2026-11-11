@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFF9D6">
+  <meta name="description" content="Rush Hour: a relaxing traffic puzzle with five randomly generated levels.">
+  <title>Rush Hour — Puzzle Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a href="#" class="brand" id="home-link" aria-label="Back to main menu">Rush Hour</a>
+    </header>
+
+    <section id="menu-screen" class="screen" aria-labelledby="menu-title">
+      <div class="hero">
+        <div class="hero-text">
+          <h1 id="menu-title">A little traffic,<br><span>a lot of thinking.</span></h1>
+          <p>Move the cars out of the way and help the green car reach the exit. Take your time and find the best route.</p>
+          <div class="how-to" aria-label="How to play">
+            <span>Select a car</span><span>Slide it along its direction</span><span>Reach the exit</span>
+          </div>
+        </div>
+        <div class="hero-pattern" aria-hidden="true"><span class="mini-car mini-pink"></span><span class="mini-car mini-green"></span><span class="mini-car mini-yellow"></span></div>
+      </div>
+      <div class="section-heading">
+        <h2>Choose a level</h2>
+        <p>Each time you play, you'll get a new puzzle.</p>
+      </div>
+      <div id="level-list" class="level-grid" aria-label="Available levels"></div>
+    </section>
+
+    <section id="game-screen" class="screen hidden" aria-labelledby="game-title">
+      <div class="game-heading">
+        <div><p class="game-subtitle" id="game-subtitle">Level 1</p><h1 id="game-title">Make some space</h1></div>
+        <button type="button" class="ghost-button" data-action="menu">Back to levels</button>
+      </div>
+      <div class="statusbar"><span id="level-name">Warm Up</span><span>Moves <strong id="move-count" aria-live="polite">0</strong></span><span>Best <strong id="best-count">—</strong></span></div>
+      <div class="play-area">
+        <div class="board-frame">
+          <div id="board" role="group" aria-label="Rush Hour 6 by 6 game board" aria-describedby="board-help"></div>
+          <div class="exit" aria-hidden="true">Exit →</div>
+        </div>
+      </div>
+      <p id="board-help" class="board-help">Select a car and use the arrows, or drag it with your mouse or finger.</p>
+      <p id="selected-info" class="selected-info" aria-live="polite">Select a car to move</p>
+      <div class="direction-controls" aria-label="Movement controls">
+        <button type="button" data-direction="up" aria-label="Move up">↑</button>
+        <div class="direction-row"><button type="button" data-direction="left" aria-label="Move left">←</button><button type="button" data-direction="down" aria-label="Move down">↓</button><button type="button" data-direction="right" aria-label="Move right">→</button></div>
+      </div>
+      <div class="game-actions">
+        <button type="button" id="undo-button" class="secondary-button">Undo</button>
+        <button type="button" id="restart-button" class="secondary-button">Restart</button>
+        <button type="button" id="new-puzzle-button" class="primary-button">New puzzle</button>
+      </div>
+    </section>
+
+    <section id="victory-screen" class="screen hidden" aria-labelledby="victory-title">
+      <div class="victory-card">
+        <div class="victory-symbol" aria-hidden="true">✓</div>
+        <h1 id="victory-title">You made it!</h1>
+        <p>The green car is free. Nice work!</p>
+        <div class="victory-stats"><div><span>Your moves</span><strong id="final-count">0</strong></div><div><span>Best score</span><strong id="final-best">0</strong></div></div>
+        <p id="record-message" class="record-message" aria-live="polite"></p>
+        <div class="victory-actions"><button type="button" class="secondary-button" data-action="menu">Choose a level</button><button type="button" id="next-button" class="primary-button">Next level</button></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
