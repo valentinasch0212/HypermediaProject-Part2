@@ -1,6 +1,6 @@
 # Rush Hour — Random Puzzle Game
 
-**Hypermedia Project Part 2 | University of Girona (UdG)**
+**Hypermedia Project Part 2-Universitat de Girona**
 
 **Team members:** 
 **Course:** Multimedia and User Interfaces 
