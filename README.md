@@ -156,8 +156,6 @@ The best score is stored using the browser's **`localStorage`**, with a key deri
 
 ## 8. UI/UX design justification
 
-The assignment requests not only a functioning puzzle but also a good interface and an explanation of its design. The following decisions are intentional.
-
 ### 8.1 Visual identity and color choices
 
 The interface uses a restrained pastel palette:
@@ -169,9 +167,7 @@ The interface uses a restrained pastel palette:
 | Cream | `#FFF9D6` | Instructions, information panels and warm highlights |
 | Sage green | `#8EA66B` | Main target car and primary actions |
 
-Additional neutral text, backgrounds and vehicle shades maintain legibility and help distinguish cars. Green is used consistently for the car that must escape, giving it a recognizable role rather than treating color as decoration alone. The exit is visibly marked, and the selected car receives an outline.
-
-**Arial/Helvetica** were chosen for familiarity and readability. Unnecessary footer text, decorative card arrows, excessive uppercase styling and a trailing punctuation mark in the brand were removed to keep the page simple and natural.
+Additional neutral text, backgrounds and vehicle shades maintain legibility and help distinguish cars. Green is used consistently for the car that must escape, giving it a recognizable role rather than treating color as decoration alone. The exit is visibly marked, and the selected car receives an outline.**Arial/Helvetica** were chosen for familiarity and readability.
 
 ### 8.2 Information hierarchy
 
@@ -193,60 +189,8 @@ Flexbox, CSS Grid, fluid sizing and media queries adapt the menu, level cards an
 
 The extra features—random puzzles, five categories, undo, restart, new puzzle generation, per-board scores and subtle animations—were included to improve replayability and control. They are implemented with standard browser technologies so that the project remains easy to run and maintain. They **extend** Rush Hour without changing its main objective or legal movement rules.
 
-## 9. Verification and testing
 
-### 9.1 Automated tests
-
-The supplied `tests.js` was executed successfully with Node.js. It checks:
-
-- The five seed boards are valid and solvable (minimum solutions: **2, 3, 4, 7 and 8** actions respectively).
-- Occupancy matrix dimensions (6 × 6), uniqueness of car IDs and non-overlapping placements.
-- Board edges, blocked movement and rejection of non-integer or zero-distance movement requests.
-- **Eight randomly generated boards per category** (40 generated boards in one run), including valid placement, unsolved starting state, minimum allowed difficulty, and variation among results.
-
-All checks passed in the final reviewed run. These tests verify the logic exercised by `tests.js`, not every possible random arrangement or every browser environment.
-
-### 9.2 Manual interaction tests
-
-Manual checks were also completed and reported as **passed** during development:
-
-| Test scenario | Result |
-| --- | --- |
-| Drag a horizontal vehicle in both allowed directions | Passed |
-| Drag a vertical vehicle up and down | Passed |
-| Attempt to pass through another vehicle | Passed: blocked |
-| Attempt to move outside the board | Passed: blocked |
-| Select a car and move using arrow keys | Passed |
-| Drag using a touch screen | Passed |
-| Use Undo, Restart and New puzzle | Passed |
-| Complete a level and view the victory screen | Passed |
-| Reopen the page and check the saved best score | Passed |
-| Check appearance on desktop and mobile-sized screens | Passed |
-
-These results describe the manual checks performed by the project tester; they are not a substitute for checking the final submitted copy on its target devices.
-
-## 10. Compliance with the assignment
-
-| Assignment requirement | Where it is addressed |
-| --- | --- |
-| Implement Rush Hour as a single-player web game | Sections 1–3; `script.js` |
-| Board with movable horizontal and vertical cars | Sections 3 and 7.1–7.3 |
-| Move the main car to the exit | Sections 3 and 7.5 |
-| Use standard HTML5, CSS and JavaScript | Sections 2, 6 and 7 |
-| No external frameworks or libraries | Sections 1–2 and 6 |
-| Clear code and comments, including complex algorithms | `script.js`; Section 7 |
-| Main menu, instructions and level selection | Section 4.1; `index.html` |
-| Game screen, score and return-to-menu option | Section 4.2; `index.html` |
-| Board interaction | Sections 3 and 7.4 |
-| Victory screen with score and menu option | Section 4.3; `index.html` |
-| Good interface and justified user experience | Section 8 |
-| README and website code delivered in a ZIP | Section 6 and final submission package |
-| Creative extensions | Sections 5, 7.5 and 8.6 |
-| Group of two | Add both team members at the beginning of this README |
-
-The examples in the assignment are references rather than a compulsory visual template. Our design uses a different look while preserving the required screens, behavior and navigation.
-
-## 11. Known limitations and design boundaries
+## 9. Known limitations and design boundaries
 
 - Random generation uses a limited number of attempts and can occasionally fall back to the seed configuration. It does **not** guarantee a unique board on every play.
 - The five difficulty categories enforce minimum solution lengths, but the exact challenge can vary between puzzles within a category.
@@ -254,16 +198,4 @@ The examples in the assignment are references rather than a compulsory visual te
 - The game uses a conventional fixed **6 × 6** board and a right-side exit for the green car; these are deliberate scope choices.
 - The website does not include audio, accounts or remote services, as none are required by the assignment.
 
-## 12. Final submission checklist
 
-- [ ] Replace the team-member placeholders with the actual names.
-- [x] Include `index.html`, `style.css` and `script.js`.
-- [x] Include the README and its design/UX justification.
-- [x] Include optional `tests.js` for reproducible automated checks.
-- [x] Run the game without external dependencies.
-- [x] Verify automated rules and manual interactions.
-- [ ] Confirm the ZIP opens and `index.html` loads correctly **after extraction**, before uploading to Moodle.
-
----
-
-**Submission format:** one ZIP file containing the project source code and this README, as specified in *Hypermedia Project Part 2 — Create a web game: Rush Hour*.
