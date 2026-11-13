@@ -2,7 +2,7 @@
 
 **Hypermedia Project Part 2 | Universitat de Girona (UdG)**
 
-**Team members:**
+**Author:** Valentina Andrea Schotborgh Barrios (u6120057)
 
 **Course:** Multimedia and User Interfaces
 
